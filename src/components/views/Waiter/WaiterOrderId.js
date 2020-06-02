@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Tables.module.scss';
+import styles from './Waiter.module.scss';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -51,7 +51,7 @@ const renderActions = status => {
   }
 };
 
-const Tables = () => (
+const WaiterOrderId = () => (
   <Paper className={styles.component}>
     <Table>
       <TableHead>
@@ -65,7 +65,7 @@ const Tables = () => (
       <TableBody>
         {demoContent.map(row => (
           <TableRow key={row.id}>
-            <TableCell component="th" scope="row">
+            <TableCell  component="th" scope="row">
               {row.id}
             </TableCell>
             <TableCell>
@@ -88,4 +88,4 @@ const Tables = () => (
   </Paper>
 );
 
-export default Tables;
+export default WaiterOrderId;
