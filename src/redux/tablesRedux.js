@@ -37,6 +37,21 @@ export const fetchFromAPI = () => {
   };
 };
 
+export const fetchFromStatus = (tablesId, status) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+  
+    Axios
+      .put(`${api.url}/${api.tables}/${tablesId}`, {status})
+      .then(res => {
+        dispatch(changeStatus(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
 /* reducer */
 export default function reducer(statePart = [], action = {}) {
   switch (action.type) {
@@ -69,12 +84,15 @@ export default function reducer(statePart = [], action = {}) {
       };
     }
     case CHANGE_STATUS: {
+      const tables = statePart.data.map(t => {
+        if (t.id === action.payload.id) {
+          t.status = action.payload.status;
+        }
+        return t;
+      });
       return {
         ...statePart,
-        loading: {
-          active: false,
-          error: action.payload,
-        },
+        data: tables,
       };
     }
     default:
