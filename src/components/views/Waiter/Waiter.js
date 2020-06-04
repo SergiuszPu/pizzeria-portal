@@ -13,7 +13,7 @@ class Waiter extends React.Component {
 
   static propTypes = {
     fetchTables: PropTypes.func,
-    tables: PropTypes.array,
+    tables: PropTypes.array,//<--------------------------------------------------
     loading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),//anyOf
