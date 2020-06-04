@@ -37,14 +37,14 @@ export const fetchFromAPI = () => {
   };
 };
 
-export const fetchFromStatus = (tablesId, status) => {
+export const fetchFromStatus = (table, status) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
   
     Axios
-      .put(`${api.url}/${api.tables}/${tablesId}`, {status})
+      .put(`${api.url}/${api.tables}/${table.id}`, {...table, status})
       .then(res => {
-        dispatch(changeStatus(res.data));
+        dispatch(fetchFromAPI());
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));
@@ -83,18 +83,18 @@ export default function reducer(statePart = [], action = {}) {
         },
       };
     }
-    case CHANGE_STATUS: {
-      const tables = statePart.data.map(t => {
-        if (t.id === action.payload.id) {
-          t.status = action.payload.status;
-        }
-        return t;
-      });
-      return {
-        ...statePart,
-        data: tables,
-      };
-    }
+    // case CHANGE_STATUS: {
+    //   const tables = statePart.data.map(t => {
+    //     if (t.id === action.payload.id) {
+    //       t.status = action.payload.status;
+    //     }
+    //     return t;
+    //   });
+    //   return {
+    //     ...statePart,
+    //     data: tables,
+    //   };
+    // }
     default:
       return statePart;
   }
